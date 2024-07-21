@@ -1,3 +1,5 @@
+const { log } = require("console");
+
 class Transaction {
   constructor(amount, date) {
     this.amount = amount;
@@ -27,10 +29,10 @@ class Customer {
       balance = balance + tr.amount;
     });
     if (balance < 0) {
-     console.log(("the balance cannot be negative:"));
+      console.log("the balance cannot be negative:");
       return 0;
     } else {
-      console.log(("the balance is:"));
+      console.log("the balance is:");
       return balance;
     }
   }
@@ -77,6 +79,13 @@ class Branch {
       return findCustomer.addTransactions(amount);
     }
   }
+
+  findBranchByName(customerName) {
+    const findCustomer = this.customers.find((customer) => {
+      return customer.getName() === customerName;
+    });
+    return findCustomer;
+  }
 }
 
 class Bank {
@@ -114,6 +123,10 @@ class Bank {
       return console.log("this Branch it is in bank " + findBranchBynum);
     }
     return console.log("this Branch it is not in bank");
+  }
+
+  findCustomerByName(branchName, customerName) {
+    return branchName.findBranchByName(customerName);
   }
 
   checkBranch(branch) {
@@ -176,10 +189,10 @@ const customer3 = new Customer("John", 3);
 
 arizonaBank.addBranch(westBranch);
 arizonaBank.addBranch(sunBranch);
-arizonaBank.addBranch(westBranch);
+// arizonaBank.addBranch(westBranch);
 
-arizonaBank.findBranchByName("bank");
-arizonaBank.findBranchByName("sun");
+// arizonaBank.findBranchByName("bank");
+// arizonaBank.findBranchByName("sun");
 
 arizonaBank.addCustomer(westBranch, customer1);
 arizonaBank.addCustomer(westBranch, customer3);
@@ -190,7 +203,8 @@ arizonaBank.addCustomerTransaction(westBranch, customer1.getId(), 3000);
 arizonaBank.addCustomerTransaction(westBranch, customer1.getId(), 2000);
 arizonaBank.addCustomerTransaction(westBranch, customer2.getId(), 3000);
 
-customer1.addTransactions(-1000);
-console.log(customer1.getBalance());
-console.log(arizonaBank.listCustomers(westBranch, true));
-console.log(arizonaBank.listCustomers(sunBranch, true));
+// customer1.addTransactions(-1000);
+// console.log(customer1.getBalance());
+// console.log(arizonaBank.listCustomers(westBranch, true));
+// console.log(arizonaBank.listCustomers(sunBranch, true));
+console.log(arizonaBank.findCustomerByName(sunBranch, "Anna"));
